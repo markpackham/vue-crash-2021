@@ -35,7 +35,14 @@ export default {
   },
   methods: {
     async fetchTasks() {
-      const res = await fetch("http://localhost:5000/tasks");
+      // api is http://localhost:5000/ but we use a proxy setup in root, vue.config.js
+      const res = await fetch("api/tasks");
+      const data = await res.json();
+      return data;
+    },
+    // fetch a single task
+    async fetchTask(id) {
+      const res = await fetch(`api/tasks/${id}`);
       const data = await res.json();
       return data;
     },
