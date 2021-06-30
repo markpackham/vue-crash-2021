@@ -30,29 +30,15 @@ export default {
       showAddTask: false,
     };
   },
-  created() {
-    this.tasks = [
-      {
-        id: "1",
-        text: "Doctors Appointment",
-        day: "March 5th at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: "2",
-        text: "Meeting with boss",
-        day: "March 6th at 1:30pm",
-        reminder: true,
-      },
-      {
-        id: "3",
-        text: "Food shopping",
-        day: "March 7th at 2:00pm",
-        reminder: false,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
   },
   methods: {
+    async fetchTasks() {
+      const res = await fetch("http://localhost:5000/tasks");
+      const data = await res.json();
+      return data;
+    },
     toggleAddTask() {
       this.showAddTask = !this.showAddTask;
     },
